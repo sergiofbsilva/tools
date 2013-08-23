@@ -2,7 +2,11 @@ package pt.ist.dbUtils;
 
 import java.sql.SQLException;
 
-public abstract class TaskWithExternalDbOperation extends TaskWithExternalDbOperation_Base {
+import pt.ist.bennu.scheduler.CronTask;
+import pt.ist.bennu.scheduler.annotation.Task;
+
+@Task(englishTitle = "task with external db operation")
+public abstract class TaskWithExternalDbOperation extends CronTask {
 
     private static ThreadLocal<DbTransaction> transaction = new InheritableThreadLocal<DbTransaction>();
 
@@ -32,7 +36,7 @@ public abstract class TaskWithExternalDbOperation extends TaskWithExternalDbOper
     }
 
     @Override
-    public void executeTask() {
+    public void runTask() {
         try {
             final EmbededExternalDbOperation embededExternalDbOperation = new EmbededExternalDbOperation(this);
             transaction.set(embededExternalDbOperation);

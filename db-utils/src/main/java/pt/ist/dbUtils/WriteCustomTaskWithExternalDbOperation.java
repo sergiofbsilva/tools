@@ -2,9 +2,9 @@ package pt.ist.dbUtils;
 
 import java.sql.SQLException;
 
-import pt.ist.bennu.core.domain.scheduler.WriteCustomTask;
+import pt.ist.bennu.scheduler.custom.CustomTask;
 
-public abstract class WriteCustomTaskWithExternalDbOperation extends WriteCustomTask {
+public abstract class WriteCustomTaskWithExternalDbOperation extends CustomTask {
 
     private class EmbededExternalDbOperation extends ExternalDbOperation {
 
@@ -27,7 +27,7 @@ public abstract class WriteCustomTaskWithExternalDbOperation extends WriteCustom
     }
 
     @Override
-    protected final void doService() {
+    public void runTask() {
         final EmbededExternalDbOperation embededExternalDbOperation = new EmbededExternalDbOperation(this);
         embededExternalDbOperation.execute();
     }
